@@ -1,0 +1,47 @@
+.user-details {
+    padding: 20px;
+  }
+  
+  .page-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+  }
+  
+  .detail-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .detail-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #666;
+  }
+  
+  .detail-card p {
+    font-size: 1rem;
+    margin: 5px 0;
+  }
+  
+  .detail-card strong {
+    color: #333;
+  }
+  
+  @media (min-width: 768px) {
+    .user-details {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+  
+    .detail-card {
+      flex: 0 0 48%;
+    }
+  }
+  
