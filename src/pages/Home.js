@@ -1,13 +1,12 @@
-import React from 'react'
-import Layout from '../components/Layout/Layout';
-
+import React from "react";
+import Layout from "../components/Layout/Layout";
 
 const Home = () => {
   return (
     <Layout>
-        <h1> Home Page </h1>
+      <h1> Home Page </h1>
     </Layout>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

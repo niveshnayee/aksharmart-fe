@@ -1,6 +1,13 @@
-import React from 'react';
-import { FaUsers, FaBox, FaClipboardList, FaChartLine, FaCog, FaHeadset } from 'react-icons/fa';
-import '../../styles/AdminDetails.css';
+import React from "react";
+import {
+  FaUsers,
+  FaBox,
+  FaClipboardList,
+  FaChartLine,
+  FaCog,
+  FaHeadset,
+} from "react-icons/fa";
+import "../../styles/AdminDetails.css";
 
 const AdminDetails = () => {
   return (
@@ -52,6 +59,6 @@ const AdminDetails = () => {
       </div>
     </div>
   );
-}
+};
 
 export default AdminDetails;

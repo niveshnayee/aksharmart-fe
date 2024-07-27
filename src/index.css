@@ -1,12 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Poppins:wght@300;400&display=swap');
-*{
-  margin : 0;
-  padding : 0;
-  box-sizing : border-box;
-
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Poppins:wght@300;400&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-
-
 
 /* .poppins-light {
   font-family: "Poppins", sans-serif;
@@ -29,10 +26,9 @@
   font-style: normal;
 } */
 
-
 /* navbar css */
 
- .navbar{
+.navbar {
   font-family: "Poppins", sans-serif;
   font-weight: 300;
   font-size: 17px;
@@ -41,33 +37,33 @@
   text-transform: uppercase;
   box-shadow: 0px 8px 6px -6px gray;
   --webkit-box-shadow: 0px 8px 6px -6px gray;
-  border-bottom:  solid gray !important;
- }
-
- .nav-link{
-   font-weight: 300 !important ;
-   border-radius: 25px; /* Adjust the radius as needed */
- }
-
- .nav-link:not(.active):hover {
-  color: rgb(2, 2, 2); 
-  background-color: #d9dfe2; 
+  border-bottom: solid gray !important;
 }
 
- .active{
-   /* border-bottom: 2px solid black; */
-   color: rgb(2, 2, 2); 
-   background-color: #74bbe7; 
- }
+.nav-link {
+  font-weight: 300 !important ;
+  border-radius: 25px; /* Adjust the radius as needed */
+}
 
- .dropdown-menu-end {
+.nav-link:not(.active):hover {
+  color: rgb(2, 2, 2);
+  background-color: #d9dfe2;
+}
+
+.active {
+  /* border-bottom: 2px solid black; */
+  color: rgb(2, 2, 2);
+  background-color: #74bbe7;
+}
+
+.dropdown-menu-end {
   right: 0;
   left: auto;
 }
 
-.dropdown-item:hover{
-  background-color: #a9b6c5; ; 
-  color: rgb(0, 0, 0); 
+.dropdown-item:hover {
+  background-color: #a9b6c5;
+  color: rgb(0, 0, 0);
   border-radius: 20px;
 }
 
@@ -75,48 +71,47 @@
   display: block; /* Show dropdown on hover */
 }
 
-
- .navbar-icon {
-  width: 35px; 
+.navbar-icon {
+  width: 35px;
   height: 35px;
 }
 
-.navbar-brand{
+.navbar-brand {
   font-weight: 700;
-  font-family: 'roboto', sans-serif;
+  font-family: "roboto", sans-serif;
   letter-spacing: 1.5px;
 }
-
-
 
 /* --------------FOOTER-------------- */
 
 .footer {
-  background: linear-gradient(to right, #5a5a5c, #35383a); /* Gradient background */
+  background: linear-gradient(
+    to right,
+    #5a5a5c,
+    #35383a
+  ); /* Gradient background */
   color: #a9b6c5; /* Darker text color */
   padding: 20px; /* Increased padding for better spacing */
   text-align: center;
   box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow at the bottom */
 }
 
-.footer a{
+.footer a {
   text-decoration: none;
   color: white;
   padding: 10px;
 }
 
-.footer a:hover{
+.footer a:hover {
   /* text-decoration:underline; */
   border-bottom: 1px solid rgb(252, 247, 247);
   color: rgb(252, 247, 247);
-
 }
 
-.active-class{
+.active-class {
   /* border-bottom: 2px solid black; */
   border-bottom: 1px solid rgb(252, 247, 247);
 }
-
 
 /* --------------PAGE_NOT_FOUND-------------- */
 
@@ -126,7 +121,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
 }
 
 .pnf-title {
@@ -145,13 +139,11 @@
   padding: 10px;
   margin-top: 10px;
   border-radius: 25px; /* Adjust the radius as needed */
-
 }
 .pnf-btn:hover {
   background-color: black;
   color: white;
 }
-
 
 /* --------------CONTACT_US-------------- */
 
@@ -171,15 +163,18 @@
   margin-bottom: 30px;
 }
 
-
-.phone, .email, .chat {
+.phone,
+.email,
+.chat {
   text-decoration: none; /* Remove underline by default */
   cursor: pointer; /* Change cursor to pointer on hoverable items */
   color: inherit; /* Inherit parent color */
   background-color: transparent; /* Transparent background */
 }
 
-.phone:hover, .email:hover, .chat:hover {
+.phone:hover,
+.email:hover,
+.chat:hover {
   text-decoration: underline; /* Underline on hover */
 }
 
@@ -189,7 +184,7 @@
   cursor: pointer;
 }
 
-.col-md-6{
+.col-md-6 {
   width: 550px;
 }
 
@@ -216,8 +211,6 @@
 .contact-form button {
   margin-top: 10px;
 }
-
-
 
 /* --------------ABOUT_US-------------- */
 
@@ -265,7 +258,6 @@
   border-radius: 15px; /* Optional: to match the box */
 }
 
-
 /* --------------PRIVACY_POLICY-------------- */
 
 .policy-container {
@@ -295,7 +287,6 @@
   list-style-type: disc;
   margin-left: 20px;
 }
-
 
 /* --------------SIGN_UP-------------- */
 
@@ -343,10 +334,6 @@
   text-align: center;
 }
 
-
-
-
-
 /* --------------SIGN_IN-------------- */
 
 .login-container {
@@ -392,7 +379,6 @@
 .login-container p {
   text-align: center;
 }
-
 
 /* --------------ACCOUNT_PAGE-------------- */
 
