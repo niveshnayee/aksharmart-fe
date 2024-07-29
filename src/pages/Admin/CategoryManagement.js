@@ -30,9 +30,9 @@ const CategoryManagement = () => {
         try {
             const {data} = await axios.get(`/api/v1/category/get-all`);
 
-            if(data.success)
+            if(data?.success)
             {
-                setCategories(data.categories);
+                setCategories(data?.categories);
             }
 
             

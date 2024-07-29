@@ -7,7 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import { UserProvider } from "./Context/UserContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import 'antd/dist/reset.css';
+// import 'antd/dist/reset.css';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
