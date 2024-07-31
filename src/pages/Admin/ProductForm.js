@@ -2,10 +2,11 @@ import {React,useState, useEffect} from "react";
 import { toast } from "react-toastify";
 import { Button, Form, Input, Select} from 'antd';
 import axios from "axios";
+import API_URLS from '../../config';
 
 const {Option} = Select;
 
-const CreateProduct = ({mode, product, onClose , onProductCreated}) =>
+const ProductForm = ({mode, product, onClose , onProductCreated}) =>
 {
     console.log(product, " in create/edit product");
     const [categories, setCategories] = useState([]);
@@ -15,13 +16,14 @@ const CreateProduct = ({mode, product, onClose , onProductCreated}) =>
     const [category, setCategory] = useState(product?.category || '');
     const [quantity, setQuantity] = useState(product?.quantity || '');
     const [photo, setPhoto] = useState(null);
+    const [photoUrl, setPhotoUrl] = useState('');
     const [shipping, setShipping] = useState(product?.shipping || null);
  
     // API CALL TO GET ALL CATEGORIES
     const getAllCategory = async() =>
     {
         try {
-            const {data} = await axios.get(`/api/v1/category/get-all`);
+            const {data} = await axios.get(API_URLS.get_all_category_url);
 
             if(data?.success)
             {
@@ -46,9 +48,10 @@ const CreateProduct = ({mode, product, onClose , onProductCreated}) =>
             setName(product.name);
             setDescription(product.description);
             setPrice(product.price);
-            setCategory(product.category);
+            setCategory(product.category?._id || product.category);
             setQuantity(product.quantity);
-            setShipping(product.shipping);
+            setShipping(product.shipping ? "1" : "0");
+            setPhotoUrl(`${API_URLS.get_photo_url}/${product._id}`); // Set the initial photo URL
             // Optionally set the photo if you have a URL
             // setPhoto(product.photoUrl);
         }
@@ -70,7 +73,10 @@ const CreateProduct = ({mode, product, onClose , onProductCreated}) =>
             formData.append('price', price);
             formData.append('category', category);
             formData.append('quantity', quantity);
-            formData.append('photo', photo);
+            // Append the photo if a new one is selected
+            if (photo) {
+                formData.append('photo', photo);
+            }
 
             if(shipping !== null)
             {
@@ -79,7 +85,7 @@ const CreateProduct = ({mode, product, onClose , onProductCreated}) =>
 
             // const {data} = await axios.post('/api/v1/product/create', formData);
 
-            const url = mode === "add" ? '/api/v1/product/create' : `/api/v1/product/update-product/${product._id}`;
+            const url = mode === "add" ? API_URLS.create_product_url: `${API_URLS.update_product_url}/${product._id}`;
             const method = mode === "add" ? 'post' : 'put';
 
             const { data } = await axios({ url, method, data: formData });
@@ -88,7 +94,8 @@ const CreateProduct = ({mode, product, onClose , onProductCreated}) =>
             if(data.success)
             {
                 // toast.success(`${data.product.name} added Successfully`);
-                toast.success(`${data.product.name} ${mode === "add" ? 'added' : 'updated'} Successfully`);
+                toast.success(`${(mode === "edit") ? (data.updatedProduct.name) : (data.product.name)} 
+                    ${mode === "add" ? 'added' : 'updated'} Successfully`);
                 setName('');
                 setDescription('');
                 setPrice('');
@@ -146,8 +153,8 @@ const CreateProduct = ({mode, product, onClose , onProductCreated}) =>
                         showSearch
                         className="form-select mb-3"
                         required
-                        onChange = {(value) => {setCategory(value)}}
-                        value={category}>
+                        value={category}
+                        onChange = {(value) => {setCategory(value)}}>
                             {categories?.map((c) => (
                                 <Option key={c._id} value={c._id}>
                                     {c.name}
@@ -166,7 +173,12 @@ const CreateProduct = ({mode, product, onClose , onProductCreated}) =>
                         required/>
                 </Form.Item>
 
-                <Form.Item label="Upload Photo" required>
+                <Form.Item 
+                    label="Upload Photo" 
+                    required 
+                    validateStatus={!photo && !photoUrl ? "error" : ""} 
+                    help={!photo && !photoUrl ? "Please upload a photo" : ""}
+                >
                     <label className="btn btn-outline-secondary col-md-12">
                         {photo ? photo.name : "Upload Photo"}
                         <input
@@ -183,6 +195,12 @@ const CreateProduct = ({mode, product, onClose , onProductCreated}) =>
                             <img src={URL.createObjectURL(photo)} alt="product_photo" style={{ maxWidth: '200px', marginTop: '10px' }} />
                         </div>
                     )}
+
+                    {!photo && photoUrl && (
+                        <div className="text-center">
+                            <img src={photoUrl} alt="product_photo" style={{ maxWidth: '200px', marginTop: '10px' }} />
+                        </div>
+                    )}
                 </Form.Item>
 
 
@@ -192,9 +210,9 @@ const CreateProduct = ({mode, product, onClose , onProductCreated}) =>
                         size="large"
                         showSearch
                         className="form-select mb-3"
+                        value={shipping}
                         onChange={(value) => {
-                        setShipping(value);}}
-                        value={shipping}>
+                        setShipping(value);}}>
                             <Option value="0">No</Option>
                             <Option value="1">Yes</Option>
                     </Select>
@@ -211,4 +229,4 @@ const CreateProduct = ({mode, product, onClose , onProductCreated}) =>
 
 };
 
-export default CreateProduct;
+export default ProductForm;

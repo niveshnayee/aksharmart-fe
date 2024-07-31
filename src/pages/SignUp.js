@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useUser } from "../Context/UserContext";
+import API_URLS from '../config';
 
 const SignUp = () => {
   const [name, setName] = useState({ first: "", last: "" });
@@ -19,7 +20,7 @@ const SignUp = () => {
   const submitHandle = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`/api/v1/auth/register`, {
+      const res = await axios.post(API_URLS.register_url, {
         firstName: name.first,
         lastName: name.last,
         email,

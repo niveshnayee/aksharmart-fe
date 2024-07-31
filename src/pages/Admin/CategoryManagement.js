@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { Button, Modal, Form, Input} from 'antd';
 import axios from "axios";
 import "../../styles/CategoryManagement.css";
+import API_URLS from '../../config';
 
 
 
@@ -28,7 +29,7 @@ const CategoryManagement = () => {
     const getAllCategory = async() =>
     {
         try {
-            const {data} = await axios.get(`/api/v1/category/get-all`);
+            const {data} = await axios.get(API_URLS.get_all_category_url);
 
             if(data?.success)
             {
@@ -61,7 +62,7 @@ const CategoryManagement = () => {
         console.log("coming in create ", name);
         try {
 
-            const {data} = await axios.post('/api/v1/category/create-category', {name});
+            const {data} = await axios.post(API_URLS.create_category_url, {name});
 
             if(data.success)
             {
@@ -95,7 +96,7 @@ const CategoryManagement = () => {
     const handleEdit = async(id) => {
     // Logic for editing a category
     try {
-        const {data} = await axios.put(`/api/v1/category/update/${id}`, {name : newName});
+        const {data} = await axios.put(`${API_URLS.update_category_url}/${id}`, {name : newName});
 
         if(data.success)
         {
@@ -128,7 +129,7 @@ const CategoryManagement = () => {
     const handleDelete = async(id) => {
     // Logic for deleting a category
     try {
-        const {data} = await axios.delete(`/api/v1/category/delete/${id}`);
+        const {data} = await axios.delete(`${API_URLS.delete_category_url}/${id}`);
         if (data.success) {
             toast.success(`Category deleted successfully`);
             getAllCategory();

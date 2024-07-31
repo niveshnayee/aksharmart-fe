@@ -1,11 +1,12 @@
 import {React,useEffect,useState} from "react";
 import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
-import { Button, Modal, Form, Input} from 'antd';
+import {  Modal} from 'antd';
 import axios from "axios";
 import "../../styles/ProductManagement.css";
-import CreateProduct from './CreateProduct';
+import ProductForm from "./ProductForm";
 import { Card } from 'antd';
+import API_URLS from '../../config';
 const { Meta } = Card;
 
 
@@ -23,14 +24,13 @@ const ProductManagement = () => {
     // UPDATE/EDIT CATEGORY
     const [editModal, setEditModal] = useState(false);
     const [selected, setSelected] = useState(null);
-    const [newName, setNewName] = useState("");
 
 
     // API CALL TO GET ALL CATEGORIES
     const getAllProducts = async() =>
     {
         try {
-          const {data} =  await axios.get('/api/v1/product/get-all');
+          const {data} =  await axios.get(API_URLS.get_all_product_url);
 
           if(data?.success)
           {
@@ -48,39 +48,19 @@ const ProductManagement = () => {
       getAllProducts();
     },[]);
 
-    
-    // // API CALL TO EDIT/UPDATE PRODUCT
-    // const handleEdit = async(id) => {
-    //   // Logic for editing a category
-    //   try {
-          
-          
-    //   } catch (error) {
-    //       console.log(error);
-    //       if (error.response) {
-    //           // Server responded with a status other than 200 range
-    //           toast.error(error.response.data.message || "Something went wrong :(");
-    //       } else if (error.request) {
-    //           // Request was made but no response received
-    //           toast.error("No response from server. Please try again later.");
-    //       } else {
-    //           // Something else happened while setting up the request
-    //           toast.error("Something went wrong :(");
-    //       }
-    //   }
-      
-    // };
-
     // API CALL TO DELETE Product
     const handleDelete = async(id) => {
       // Logic for deleting a category
       try {
-        const {data} = await axios.delete(`/api/v1/product/delete-product/${id}`);
-        if (data.success) {
-            toast.success(`Product deleted successfully`);
-            getAllProducts();
-        } else {
-            toast.error(`${data.message}`);
+        const answer = window.confirm("Are you sure you want to delete this product?");
+        if(answer){
+          const {data} = await axios.delete(`${API_URLS.delete_product_url}/${id}`);
+          if (data.success) {
+              toast.success(`Product deleted successfully`);
+              getAllProducts();
+          } else {
+              toast.error(`${data.message}`);
+          }
         }
           
       } catch (error) {
@@ -98,8 +78,6 @@ const ProductManagement = () => {
       }
       
     };
-
-
     
     const handleSearch = (e) => {
       setSearchTerm(e.target.value);
@@ -125,8 +103,6 @@ const ProductManagement = () => {
           </button>
         </div>
 
-
-
         <div className="product-grid">
           {products?.map((p) => (
             <Card
@@ -134,7 +110,7 @@ const ProductManagement = () => {
               cover={
                 <img
                   alt="example"
-                  src={`/api/v1/product/get-photo/${p._id}`}
+                  src={`${API_URLS.get_photo_url}/${p._id}`}
                 />
               }
               actions={[
@@ -158,7 +134,7 @@ const ProductManagement = () => {
             visible={editModal}
             onCancel={() => setEditModal(false)}
             footer={null}>
-              <CreateProduct
+              <ProductForm
                 mode = "edit"
                 product = {selected}
                 onClose={() => {setSelected(null); setEditModal(false)}}
@@ -171,7 +147,7 @@ const ProductManagement = () => {
           visible={addModal}
           onCancel={() => setAddModal(false)}
           footer={null}>
-            <CreateProduct
+            <ProductForm
               mode = "add"
               onClose={() => setAddModal(false)}
               onProductCreated={getAllProducts}

@@ -3,8 +3,7 @@ import Layout from "../components/Layout/Layout";
 import {
   FaMapMarkerAlt,
   FaPhone,
-  FaEnvelope,
-  FaQuestionCircle,
+  FaEnvelope
 } from "react-icons/fa"; // Import FontAwesome icons
 import { NavLink } from "react-router-dom";
 
@@ -22,11 +21,11 @@ const Contact = () => {
     }
   };
 
-  // Function to handle opening chatbot
-  const openChatbot = () => {
-    // Implement your chatbot logic here
-    alert("Opening chatbot...");
-  };
+  // // Function to handle opening chatbot
+  // const openChatbot = () => {
+  //   // Implement your chatbot logic here
+  //   alert("Opening chatbot...");
+  // };
 
   return (
     <Layout title="Contact Us - AksharMart">

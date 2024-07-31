@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useUser } from "../Context/UserContext";
+import API_URLS from "../config";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -19,7 +20,7 @@ const SignIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`/api/v1/auth/login`, { email, password });
+      const res = await axios.post( API_URLS.login_url , { email, password });
 
       if (res.data.success) {
         toast.success(res.data.message);

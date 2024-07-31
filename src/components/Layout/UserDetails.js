@@ -1,5 +1,4 @@
 import React from "react";
-import { Card } from "react-bootstrap";
 import "../../styles/UserDetails.css";
 import { useUser } from "../../Context/UserContext";
 

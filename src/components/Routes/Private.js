@@ -3,6 +3,7 @@ import { useUser } from "../../Context/UserContext";
 import axios from "axios";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { toast } from 'react-toastify';
+import API_URLS from '../../config';
 
 export default function PrivateRoute() {
   const { user } = useUser();
@@ -14,8 +15,11 @@ export default function PrivateRoute() {
       try {
         console.log("PRIVATE CLASS : USER ROLE : ", user.data.role);
 
+        // const res = await axios.get(
+        //   `/api/v1/auth/${location.pathname.startsWith("/admin") ? "admin" : "user-auth"}`
+        // );
         const res = await axios.get(
-          `/api/v1/auth/${location.pathname.startsWith("/admin") ? "admin" : "user-auth"}`
+          location.pathname.startsWith("/admin") ? API_URLS.admin_url : API_URLS.user_auth_url
         );
 
         if (res.data.ok) {
