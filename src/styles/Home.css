@@ -1,0 +1,15 @@
+.horizontalLine {
+    border-bottom: 2px solid #000000 !important;
+    border: none;             /* Remove default border */
+    border-top: 2px solid #000; /* Add a solid black line (you can customize the color and width) */
+    margin: 20px 0;           /* Add vertical spacing (top and bottom) */
+    width: 75%;               /* Set the width (you can adjust as needed) */
+    margin-left: auto;        /* Center the line horizontally */
+    margin-right: auto;       /* Center the line horizontally */
+}
+.hr{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #eee;
+}

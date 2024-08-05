@@ -1,13 +1,39 @@
-import { React } from "react";
+import { React, useState, useEffect} from "react";
 import { NavLink, Link } from "react-router-dom";
 import { MdAddShoppingCart, MdAccountCircle } from "react-icons/md";
 import { useUser } from "../../Context/UserContext";
 import toast from "react-hot-toast";
+import axios  from 'axios';
+import API_URLS from "../../config";
 
 function Header() {
   // const user = useContext(UserContext);
   const { user, setUser } = useUser();
   // console.log("user data in header file", user);
+
+  const [categories , setCategories] = useState([]);
+
+  const getAllCategory = async() =>
+  {
+    try {
+      const {data} = await axios.get(API_URLS.get_all_category_url);
+
+      if(data?.success)
+      {
+        setCategories(data.categories);
+      }
+      
+    } catch (error) {
+      console.log(error);
+      toast.error("error in getting categories");
+    }
+    
+  }
+
+   // LOAD getAllCat..() FIRST TIME
+   useEffect( () =>{
+    getAllCategory();
+  },[]);
 
   const handleSignOut = () => {
     setUser({
@@ -46,10 +72,34 @@ function Header() {
                 </NavLink>
               </li>
 
-              <li className="nav-item">
-                <NavLink to="/category" className="nav-link">
+              <li className="nav-item dropdown ml-auto">
+                <NavLink 
+                  to="/category" 
+                  className="nav-link dropdown-toggle"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false">
+
                   Category
                 </NavLink>
+
+                <ul
+                  className="dropdown-menu"
+                  aria-labelledby="navbarDropdown"
+                >
+                  {categories.map((category, index) => (
+                    <li key={index}>
+                      <NavLink
+                        to={category.name}
+                        className="dropdown-item"
+                      >
+                        {category.name}
+                      </NavLink>
+                    </li>
+                  ))}
+                  
+                </ul>
               </li>
 
               {user.data ? (

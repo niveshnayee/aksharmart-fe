@@ -1,0 +1,70 @@
+.slider-container {
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.slider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slider-image {
+  width: 100% !important;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer; /* Show pointer cursor on hover */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for visual changes */
+}
+
+.slider-image:hover {
+  transform: scale(1.05); /* Slight zoom effect on hover */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow to indicate clickability */
+}
+
+.slider-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.3s ease-in-out;
+}
+
+.prev-button {
+  left: 10px;
+}
+
+.next-button {
+  right: 10px;
+}
+
+.slider-container:hover .slider-button {
+  opacity: 1; /* Show on hover */
+}
+
+.navigation-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
+  border-radius: 50%;
+  background: gray;
+  cursor: pointer;
+}
+
+.dot.active {
+  background: black;
+}
