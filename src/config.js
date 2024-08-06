@@ -28,6 +28,7 @@ const API_URLS = {
     get_photo_url : `${PRODUCT_URL}/get-photo`,
     update_product_url : `${PRODUCT_URL}/update-product`,
     delete_product_url : `${PRODUCT_URL}/delete-product`,
+    get_product_by_category_name_url : `${PRODUCT_URL}/get/by`
 }
 
 export default API_URLS;

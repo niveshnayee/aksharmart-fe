@@ -28,7 +28,7 @@ function Header() {
       toast.error("error in getting categories");
     }
     
-  }
+  };
 
    // LOAD getAllCat..() FIRST TIME
    useEffect( () =>{
