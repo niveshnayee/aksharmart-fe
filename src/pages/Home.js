@@ -19,7 +19,7 @@ const Home = () => {
   ];
 
   const [books , setBooks] = useState([]);
-  const [murti , setMurti] = useState([]);
+  const [murtis , setMurtis] = useState([]);
   const getBooksMurti = async() =>
   {
     try {
@@ -31,7 +31,7 @@ const Home = () => {
       if(booksRes.data?.success && murtiRes.data?.success)
       {
         setBooks(booksRes.data.products);
-        setMurti(murtiRes.data.products);
+        setMurtis(murtiRes.data.products);
       }
     } catch (error) {
       console.log(error);
@@ -53,7 +53,7 @@ const Home = () => {
         <h2>Books</h2>
         <div className="product-list">
           {books.map((book) => (
-            <NavLink to="/" key={book._id} className="books-item">
+            <NavLink to="/" key={book._id} className="item">
               <img 
                 src={`${API_URLS.get_photo_url}/${book._id}`} 
                 alt={book.name} 
@@ -61,6 +61,23 @@ const Home = () => {
               />
               <h10>{book.name}</h10>
               <p>Price: ${book.price}</p>
+            </NavLink>
+          ))}
+        </div>
+      </div>
+
+      <div className="murti_div">
+        <h2>Murti</h2>
+        <div className="product-list">
+          {murtis.map((murti) => (
+            <NavLink to="/" key={murti._id} className="item">
+              <img 
+                src={`${API_URLS.get_photo_url}/${murti._id}`} 
+                alt={murti.name} 
+                className="product-photo" 
+              />
+              <h10>{murti.name}</h10>
+              <p>Price: ${murti.price}</p>
             </NavLink>
           ))}
         </div>

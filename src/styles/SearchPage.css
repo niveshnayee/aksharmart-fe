@@ -1,0 +1,39 @@
+
+.d-flex{
+    gap: 20px;
+}
+
+.ant-card {
+    width: 250px;
+    height: 400px; /* Fixed height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease; /* Add transition for animation */
+  }
+  
+  .ant-card:hover {
+    transform: translateY(-10px); /* Move the card up a little on hover */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Add a shadow for a pop-out effect */
+  }
+  
+  .ant-card-cover img {
+    height: 200px; /* Fixed image height */
+    object-fit: cover;
+  }
+  
+  .ant-card-meta-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .ant-card-meta-description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limit to 3 lines */
+    -webkit-box-orient: vertical;
+  }
