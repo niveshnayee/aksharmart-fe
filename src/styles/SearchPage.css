@@ -4,6 +4,7 @@
 }
 
 .ant-card {
+    cursor: pointer;
     width: 250px;
     height: 400px; /* Fixed height */
     display: flex;

@@ -7,15 +7,17 @@ import { BrowserRouter } from "react-router-dom";
 import { UserProvider } from "./Context/UserContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import 'antd/dist/reset.css';
+import { SearchProvider } from "./Context/SearchContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <UserProvider>
-    <BrowserRouter>
-      <App />
-      <ToastContainer />
-    </BrowserRouter>
+    <SearchProvider>
+      <BrowserRouter>
+        <App />
+        <ToastContainer />
+      </BrowserRouter>
+    </SearchProvider>
   </UserProvider>,
 );
 

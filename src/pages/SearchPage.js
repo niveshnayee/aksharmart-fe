@@ -2,30 +2,48 @@ import Layout from '../components/Layout/Layout'
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 import API_URLS from '../config';
-import { Card, Button, Checkbox, Radio } from 'antd';
+import { Card, Button, Checkbox, Radio, Pagination} from 'antd';
 import Meta from 'antd/es/card/Meta';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import "../styles/SearchPage.css";
 import { Prices } from '../components/Prices';
+import { useSearch } from '../Context/SearchContext';
+import { useLocation, useNavigate } from 'react-router-dom';
 
+
+const useQuery = () => {
+    return new URLSearchParams(useLocation().search);
+  };
 
 const SearchPage = () => {
+    const [search] = useSearch();
+
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [checked, setChecked] = useState([]);
     const [radio, setRadio] = useState([]);
 
     const [currentPage, setCurrentPage] = useState(1); // Current page number
-    const [totalPages, setTotalPages] = useState(1); // Total number of pages
+    const [totalProducts, setTotalProducts] = useState(0); // Total number of products
     const itemsPerPage = 10; // Number of items per page
+
+    const query = useQuery().get('query'); // Get the current query from the URL
+    const navigate = useNavigate();
 
 
 
     const getAllProducts = async() =>
     {
         try {
-            const {data} = await axios.get(API_URLS.get_all_product_url);
+            const {data} = await axios.get(API_URLS.get_all_product_url, {
+                params: {
+                    page: currentPage,
+                    itemPerPage: itemsPerPage,
+                    search: query || search
+                }
+            });
             setProducts(data?.products);
+            setTotalProducts(data?.totalProducts);
         } catch (error) {
             console.log(error);
         }
@@ -49,10 +67,16 @@ const SearchPage = () => {
       // Filter Products
       const filterProducts = async() => {
         try {
-            const {data} = await axios.post(API_URLS.get_filter_products_url, {checked, radio});
+            const {data} = await axios.post(API_URLS.get_filter_products_url, 
+                {
+                    checked, 
+                    radio, 
+                    page: currentPage,
+                    itemPerPage: itemsPerPage});
             if(data?.success)
             {
-                setProducts(data.products);
+                setProducts(data?.products);
+                setTotalProducts(data?.totalProducts);
             } 
         } catch (error) {
             console.log(error);
@@ -61,16 +85,13 @@ const SearchPage = () => {
 
     useEffect( () => {
         if(!checked.length && !radio.length) getAllProducts();
-        getAllCategory();
-    },[checked.length, radio.length]);
-
-    useEffect( () => {
         if(checked.length || radio.length) filterProducts();
-    },[checked, radio]);
+    },[query, checked, radio, currentPage]);
 
-    useEffect( () => {
-        // get products
-    },[currentPage]);
+    useEffect( () =>
+    {
+        getAllCategory();
+    }, []);
 
 
     // filter by Cat..
@@ -90,7 +111,11 @@ const SearchPage = () => {
     const handleAddToCart = (productId) => {
         // Add to cart logic here
         console.log("Added to cart:", productId);
-      };
+    };
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    };
 
   return (
     <Layout title={"Search - AksharMart"}>
@@ -133,11 +158,11 @@ const SearchPage = () => {
           </div>
 
           <div className='col-md-9'>
-             
               <h1 className='text-center'>All Products</h1>
               <div className='d-flex flex-wrap'>
-                {products?.map((p) => ( 
+                  {products?.map((p) => ( 
                     <Card
+                        onClick={() => navigate(`/product/${p.slug}`)}
                         key={p._id}
                         cover={
                             <img
@@ -165,9 +190,20 @@ const SearchPage = () => {
                             </>
                         }
                     />
-                    </Card>
-                ))}
+                    </Card> ))}
               </div>
+              
+              {/* Pagination Control */}
+              <div className='text-center mt-4'>
+                <Pagination
+                    current={currentPage}
+                    total={totalProducts}
+                    pageSize={itemsPerPage}
+                    onChange={handlePageChange}
+                    showSizeChanger={false}
+                    showTotal={(total, range) => `Showing ${range[0]}-${range[1]} of ${total} items`}
+                />
+                </div>
           </div>
       </div>
     </Layout>

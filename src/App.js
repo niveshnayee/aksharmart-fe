@@ -12,6 +12,7 @@ import PrivateRoute from "./components/Routes/Private";
 import Dashboard from "./pages/user/Dashboard";
 import ForgotPassword from "./pages/ForgotPassword";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
+import ProductDetails from './pages/ProductDetails';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/product/:slug" element={<ProductDetails/>} />
         <Route path="/account" element={<PrivateRoute />}>
           <Route path="user/*" element={<Dashboard />} />
         </Route>

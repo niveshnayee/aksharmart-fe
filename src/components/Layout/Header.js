@@ -5,6 +5,7 @@ import { useUser } from "../../Context/UserContext";
 import toast from "react-hot-toast";
 import axios  from 'axios';
 import API_URLS from "../../config";
+import SearchInput from "./SearchInput";
 
 function Header() {
   // const user = useContext(UserContext);
@@ -66,6 +67,7 @@ function Header() {
               AksharMart
             </Link>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+              <SearchInput/>
               <li className="nav-item">
                 <NavLink to="/" className="nav-link">
                   Home
@@ -154,11 +156,6 @@ function Header() {
                 </>
               )}
 
-              {/* <li className="nav-item">
-              <NavLink to= "/logIn" className="nav-link" >
-                Login
-              </NavLink>
-            </li> */}
               <li className="nav-item">
                 <NavLink to="/cart " className="nav-link">
                   <MdAddShoppingCart /> cart(0)
