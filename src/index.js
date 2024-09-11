@@ -8,15 +8,18 @@ import { UserProvider } from "./Context/UserContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { SearchProvider } from "./Context/SearchContext";
+import { CartProvider } from "./Context/CartContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <UserProvider>
     <SearchProvider>
-      <BrowserRouter>
-        <App />
-        <ToastContainer />
-      </BrowserRouter>
+      <CartProvider>
+        <BrowserRouter>
+          <App />
+          <ToastContainer />
+        </BrowserRouter>
+      </CartProvider>
     </SearchProvider>
   </UserProvider>,
 );

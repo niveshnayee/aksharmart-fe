@@ -6,10 +6,13 @@ import toast from "react-hot-toast";
 import axios  from 'axios';
 import API_URLS from "../../config";
 import SearchInput from "./SearchInput";
+import { useCart } from "../../Context/CartContext";
+import { Badge } from "antd";
 
 function Header() {
   // const user = useContext(UserContext);
   const { user, setUser } = useUser();
+  const [cart] = useCart();
   // console.log("user data in header file", user);
 
   const [categories , setCategories] = useState([]);
@@ -76,7 +79,7 @@ function Header() {
 
               <li className="nav-item dropdown ml-auto">
                 <NavLink 
-                  to="/category" 
+                  to="/search" 
                   className="nav-link dropdown-toggle"
                   id="navbarDropdown"
                   role="button"
@@ -93,7 +96,7 @@ function Header() {
                   {categories.map((category, index) => (
                     <li key={index}>
                       <NavLink
-                        to={category.name}
+                        to={`/search/${encodeURIComponent(category.name)}?id=${category._id}`}
                         className="dropdown-item"
                       >
                         {category.name}
@@ -157,9 +160,11 @@ function Header() {
               )}
 
               <li className="nav-item">
-                <NavLink to="/cart " className="nav-link">
-                  <MdAddShoppingCart /> cart(0)
-                </NavLink>
+                <Badge count={cart?.length} color="primary">
+                  <NavLink to="/cart " className="nav-link">
+                    <MdAddShoppingCart /> Cart {console.log(cart)}
+                  </NavLink>
+                </Badge>
               </li>
             </ul>
           </div>

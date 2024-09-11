@@ -8,8 +8,9 @@ import { ShoppingCartOutlined } from '@ant-design/icons';
 import "../styles/SearchPage.css";
 import { Prices } from '../components/Prices';
 import { useSearch } from '../Context/SearchContext';
-import { useLocation, useNavigate } from 'react-router-dom';
-
+import { useSearchParams, useLocation, useNavigate } from 'react-router-dom';
+import { useCart } from '../Context/CartContext';
+import { toast } from 'react-hot-toast';
 
 const useQuery = () => {
     return new URLSearchParams(useLocation().search);
@@ -17,6 +18,7 @@ const useQuery = () => {
 
 const SearchPage = () => {
     const [search] = useSearch();
+    const [cart, setCart] = useCart();
 
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
@@ -27,6 +29,7 @@ const SearchPage = () => {
     const [totalProducts, setTotalProducts] = useState(0); // Total number of products
     const itemsPerPage = 10; // Number of items per page
 
+    const [category] = useSearchParams();
     const query = useQuery().get('query'); // Get the current query from the URL
     const navigate = useNavigate();
 
@@ -83,9 +86,18 @@ const SearchPage = () => {
         }
     };
 
+
+     // Pre-select the category based on the query parameter
+    useEffect(() => {
+        const categoryId = category?.get('id'); // Get the category ID from query params
+        if (categoryId) {
+            setChecked([categoryId]); // Set the category as pre-selected
+        }
+    }, [category]);
+
     useEffect( () => {
-        if(!checked.length && !radio.length) getAllProducts();
         if(checked.length || radio.length) filterProducts();
+        else getAllProducts();
     },[query, checked, radio, currentPage]);
 
     useEffect( () =>
@@ -108,10 +120,10 @@ const SearchPage = () => {
         setChecked(all);
     } 
 
-    const handleAddToCart = (productId) => {
-        // Add to cart logic here
-        console.log("Added to cart:", productId);
-    };
+    const handleCart = (p) => {
+        setCart([...cart, p]);
+        toast.success(`${p.name} added to cart`);
+    }
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
@@ -126,7 +138,11 @@ const SearchPage = () => {
               <div className='d-flex flex-column'>
                 {
                     categories.map((c) => (
-                        <Checkbox key={c._id} onChange={(e) => handleFilter(e.target.checked, c._id)}>
+                        <Checkbox 
+                            key={c._id} 
+                            checked={checked.includes(c._id)} // Pre-select the checkbox if the category is in the checked state
+                            onChange={(e) => handleFilter(e.target.checked, c._id)}>
+                            
                             {c.name}
                         </Checkbox>
                     ))
@@ -162,7 +178,6 @@ const SearchPage = () => {
               <div className='d-flex flex-wrap'>
                   {products?.map((p) => ( 
                     <Card
-                        onClick={() => navigate(`/product/${p.slug}`)}
                         key={p._id}
                         cover={
                             <img
@@ -175,13 +190,15 @@ const SearchPage = () => {
                             <Button
                               type="primary"
                               icon={<ShoppingCartOutlined />}
-                              onClick={() => handleAddToCart(p._id)}
+                              onClick={() =>  handleCart(p)}
                             >
                               Add to Cart
                             </Button>
                           ]}
                     >
                     <Meta
+                        style = { {cursor: "pointer"}}
+                        onClick={() => navigate(`/product/${p.slug}`)}
                         title= {p.name}
                         description= {
                             <>

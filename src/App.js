@@ -13,6 +13,7 @@ import Dashboard from "./pages/user/Dashboard";
 import ForgotPassword from "./pages/ForgotPassword";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import ProductDetails from './pages/ProductDetails';
+import Cart from './pages/Cart';
 
 
 function App() {
@@ -35,6 +36,8 @@ function App() {
         <Route path="/policy" element={<Policy />} />
         <Route path="*" element={<PageNotFound />} />
         <Route path = "/search" element={<SearchPage/>}/>
+        <Route path = "/search/:category?" element={<SearchPage/>}/>
+        <Route path = "/cart" element={<Cart/>}/>
       </Routes>
     </>
   );

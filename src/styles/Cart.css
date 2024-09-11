@@ -1,0 +1,27 @@
+.product-container {
+    padding: 15px; /* Adjust padding as needed */
+    border: 1px solid rgb(179, 179, 160);
+    width: 100%; /* Or a fixed width if you prefer */
+    max-width: 800px; /* Limit the maximum width */
+    border-radius: 10px;
+    margin: 30px 80px; /* Center the container horizontally */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  }
+
+  .product-header, .product-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr; /* Adjust column sizes */
+    gap: 10px; /* Space between columns */
+    align-items: center; /* Align items vertically */
+    padding: 10px;
+  }
+  
+  .header-item, .product-item {
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .header-item {
+    font-weight: bold;
+  }
+  
