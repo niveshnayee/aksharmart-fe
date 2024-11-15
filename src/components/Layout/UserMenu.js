@@ -8,15 +8,11 @@ const UserMenu = ({ activeKey, onSelect }) => {
         <NavLink to="/account/user/dashboard" className="menu-link">
           User Details
         </NavLink>
-        <NavLink to="/account/user/account-settings" className="menu-link">
-          Account Settings
-        </NavLink>
+        
         <NavLink to="/account/user/order-history" className="menu-link">
           Order History
         </NavLink>
-        <NavLink to="/account/user/address-settings" className="menu-link">
-          Address Settings
-        </NavLink>
+       
         <NavLink to="/account/user/login-security" className="menu-link">
           Login & Security
         </NavLink>

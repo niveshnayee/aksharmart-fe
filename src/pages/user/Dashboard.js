@@ -16,18 +16,12 @@ const Dashboard = () => {
             <div className="col-md-8">
               <Routes>
                 <Route path="/dashboard" element={<UserDetails />} />
-                <Route
-                  path="account-settings"
-                  element={<div>Account Settings Content</div>}
-                />
+                
                 <Route
                   path="order-history"
                   element={<div>Order History Content</div>}
                 />
-                <Route
-                  path="address-settings"
-                  element={<div>Address Settings Content</div>}
-                />
+               
                 <Route
                   path="login-security"
                   element={<div>Login & Security Content</div>}

@@ -121,8 +121,26 @@ const SearchPage = () => {
     } 
 
     const handleCart = (p) => {
-        setCart([...cart, p]);
-        toast.success(`${p.name} added to cart`);
+        setCart((prevCart) => {
+            // Check if the item already exists in the cart
+            const itemIndex = prevCart.findIndex((cartItem) => cartItem.name === p.name);
+      
+            if (itemIndex === -1) {
+
+                // Item does not exist, add it with quantity 1
+                const newCart = [...prevCart, { ...p, q: 1 }];
+                localStorage.setItem('cart', JSON.stringify(newCart));  // Save updated cart to localStorage
+                toast.success(`${p.name} added to cart`);
+                return newCart;
+            } else {
+                // Item exists, update its quantity
+                const updatedCart = [...prevCart];
+                updatedCart[itemIndex].q += 1;
+                localStorage.setItem('cart', JSON.stringify(updatedCart));  // Save updated cart to localStorage
+                toast.success(`${p.name} quantity increased`);
+                return updatedCart;
+            }
+        });
     }
 
     const handlePageChange = (page) => {
